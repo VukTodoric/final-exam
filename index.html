@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <title>Final exam</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="loginPage">
+        <div class="wrapper-login">
+          <form action="homePage" id="formLogin">
+            <div class="my-form-group">
+              <label for="firstNameLogin">First name</label>
+              <input type="text" id="firstNameLogin" name="firstNameLogin" />
+            </div>
+            <div class="my-form-group">
+              <label for="lastNameLogin">Last name</label>
+              <input type="text" id="lastNameLogin" name="lastNameLogin" />
+            </div>
+            <div class="my-form-group">
+              <label for="emailLogin">Email</label>
+              <input type="email" id="emailLogin" name="emailLogin" />
+            </div>
+            <div class="my-form-group">
+              <label for="passwordLogin">Password</label>
+              <input type="password" name="passwordLogin" id="passwordLogin" />
+            </div>
+            <div class="my-form-group">
+              <button type="submit" id="loginBtn">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="homePage">
+        <header>
+          <div class="wrapper-account">
+            <h2>Naslov</h2>
+            <span id="menuBtn" class="custom-btn">&#9776;</span>
+            <button type="button" id="logoutBtn" class="custom-btn">
+              Logout
+            </button>
+          </div>
+          <div class="wrapper-navigation" id="navMenu">
+            <ul class="navList">
+              <li id="homeNav">Home</li>
+              <li id="worklogNav">Worklog</li>
+            </ul>
+          </div>
+        </header>
+      </div>
+    </div>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+body {
+  background-color: #81d8d0;
+  letter-spacing: 2px;
+}
+h1,
+h2 {
+  text-transform: uppercase;
+}
+ul {
+  list-style: none;
+}
+label {
+  text-transform: capitalize;
+}
+.container {
+  margin: 0 15%;
+}
+.display-none {
+  display: none;
+}
+.invalid {
+  border: 1px solid crimson;
+}
+
+.wrapper-login {
+  text-align: center;
+  background-color: white;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.my-form-group {
+  margin: 1rem 0;
+}
+.my-form-group label {
+  display: block;
+  color: #81d8d0;
+  font-weight: bold;
+}
+.my-form-group input,
+.my-form-group button {
+  width: 80%;
+  height: 2rem;
+  border: 1px solid #81d8d0;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  letter-spacing: 2px;
+  outline: none;
+}
+.my-form-group button {
+  text-transform: uppercase;
+  background-color: #81d8d0;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.my-form-group button:hover {
+  background-color: white;
+  color: #81d8d0;
+}
+
+.wrapper-account {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.navList {
+  display: flex;
+  justify-content: center;
+}
+.navList li {
+  padding: 0.5rem 5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.navList li:hover {
+  border-bottom: 1px solid white;
+}
+
+.custom-btn {
+  padding: 0.3rem 1rem;
+  font-weight: bold;
+  background-color: white;
+  color: #81d8d0;
+  border: 1px solid #81d8d0;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 1rem;
+}
