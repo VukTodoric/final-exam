@@ -11,7 +11,7 @@
     <div class="container">
       <div id="loginPage">
         <div class="wrapper-login">
-          <form action="homePage" id="formLogin">
+          <form id="formLogin">
             <div class="my-form-group">
               <label for="firstNameLogin">First name</label>
               <input type="text" id="firstNameLogin" name="firstNameLogin" />
@@ -34,23 +34,86 @@
           </form>
         </div>
       </div>
-      <div id="homePage">
+      <div id="homePage" class="display-none">
         <header>
           <div class="wrapper-account">
-            <h2>Naslov</h2>
+            <h2 id="userName"></h2>
             <span id="menuBtn" class="custom-btn">&#9776;</span>
             <button type="button" id="logoutBtn" class="custom-btn">
               Logout
             </button>
           </div>
-          <div class="wrapper-navigation" id="navMenu">
+          <div class="wrapper-navigation display-none" id="navMenu">
             <ul class="navList">
               <li id="homeNav">Home</li>
               <li id="worklogNav">Worklog</li>
             </ul>
           </div>
         </header>
+        <div id="homePageContent">
+          <div class="search-email">
+            <input
+              type="email"
+              id="emailSearch"
+              name="emailSearch"
+              placeholder="Search by Email"
+              class="search-email"
+            />
+          </div>
+          <div class="list-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="thId">Employee</th>
+                  <th class="thCategory">Email</th>
+                  <th class="thEdit">Position</th>
+                  <th class="thDelete">Description</th>
+                  <th class="thDelete">Empoyment date</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Print categories from JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="worklogPage" class="display-none">
+          <h2>Employee's worklogs</h2>
+          <button class="custom-btn">Create worklog</button>
+          <div class="worklog-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th class="thId">Employee</th>
+                  <th class="thCategory">Work date</th>
+                  <th class="thEdit">Logged Hours</th>
+                  <th class="thDelete">Task</th>
+                  <th class="thDelete">Comment</th>
+                  <th class="thDelete">Free day</th>
+                  <th class="thDelete">Overtime</th>
+                </tr>
+              </thead>
+              <tbody id="tableBodyWorklog">
+                <!-- Print categories from JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="overlay display-none" id="logoutModal">
+      <div class="modal">
+        <h2>Are you sure you want to logout?</h2>
+        <div class="answers">
+          <button type="button" class="custom-btn" id="yesBtn">Yes</button>
+          <button type="button" class="custom-btn" id="noBtn">No</button>
+        </div>
+      </div>
+    </div>
+    <div class="overlay display-none" id="singePageModal">
+      <div class="modal" id="singePageModalContetnt"></div>
     </div>
     <script type="module" src="assets/js/main.js"></script>
   </body>
