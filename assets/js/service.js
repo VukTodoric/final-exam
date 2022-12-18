@@ -1,6 +1,6 @@
 export class FetchApi {
   static getMethodPost(url, response) {
-    return fetch(url + "/employee/", {
+    return fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,14 +17,8 @@ export class FetchApi {
     });
   }
 
-  static getMethodDelete(url, param = "") {
-    return fetch(url + "/employee/" + param, {
-      method: "DELETE",
-    });
-  }
-
   static getMethodPut(url, response, param = "") {
-    return fetch(url + "/employee/" + param, {
+    return fetch(url + param, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

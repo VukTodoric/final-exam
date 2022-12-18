@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 16px;
+  font-family: "Oswald", sans-serif;
 }
 body {
   background-color: #81d8d0;
@@ -25,7 +27,7 @@ label {
   display: none;
 }
 .invalid {
-  border: 1px solid crimson;
+  outline: 1px solid crimson !important;
 }
 
 .wrapper-login {
@@ -48,6 +50,7 @@ label {
   font-weight: bold;
 }
 .my-form-group input,
+.my-form-group select,
 .my-form-group button {
   width: 80%;
   height: 2rem;
@@ -76,7 +79,11 @@ label {
   align-items: center;
   padding: 1rem 0;
 }
-
+#userName {
+  color: white;
+  font-size: 1.4rem;
+  text-decoration: underline;
+}
 .navList {
   display: flex;
   justify-content: center;
@@ -93,6 +100,12 @@ label {
   cursor: pointer;
 }
 
+.navList li:hover {
+  background-color: #81d8d0;
+  color: white;
+  transition: ease-in-out 0.4s;
+}
+
 .custom-btn {
   padding: 0.3rem 1rem;
   font-weight: bold;
@@ -106,8 +119,9 @@ label {
 
 .avatar-photo {
   border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.3rem 0;
 }
 
 .search-email {
@@ -131,6 +145,7 @@ label {
 
 table {
   width: 100%;
+  margin: 2rem 0;
   text-align: center;
   background-color: white;
   color: #81d8d0;
@@ -145,6 +160,7 @@ thead {
 thead th {
   font-size: 1.3rem;
   border-radius: 1rem;
+  width: 11%;
 }
 
 .overlay {
@@ -188,12 +204,38 @@ thead th {
   background-color: #81d8d0;
 }
 .image-wrapper img {
-  width: 25%;
+  width: 100%;
   border-radius: 1rem;
 }
 .data-wrapper {
   margin: 1.5rem 0;
+  text-align: start;
+  width: 80%;
 }
-.data-wrapper h2 {
+.data-wrapper h2,
+.data-wrapper p {
+  font-size: 1.3rem;
+  margin: 1rem 0;
+}
+.strong {
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-decoration: underline;
+}
+#worklogPage h2 {
   font-size: 1.5rem;
+  border-bottom: 1px solid white;
+  display: inline-block;
+  margin: 2rem 0;
+  color: white;
+}
+#worklogPage button {
+  display: block;
+}
+.employee-wrapper {
+  display: flex;
+}
+.image-wrapper {
+  width: 30%;
+  margin-right: 2rem;
 }

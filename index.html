@@ -80,7 +80,9 @@
         </div>
         <div id="worklogPage" class="display-none">
           <h2>Employee's worklogs</h2>
-          <button class="custom-btn">Create worklog</button>
+          <button class="custom-btn" id="createWorklogBtn">
+            Create worklog
+          </button>
           <div class="worklog-wrapper">
             <table>
               <thead>
@@ -95,9 +97,7 @@
                   <th class="thDelete">Overtime</th>
                 </tr>
               </thead>
-              <tbody id="tableBodyWorklog">
-                <!-- Print categories from JS -->
-              </tbody>
+              <tbody id="tableBodyWorklog"></tbody>
             </table>
           </div>
         </div>
@@ -114,6 +114,52 @@
     </div>
     <div class="overlay display-none" id="singePageModal">
       <div class="modal" id="singePageModalContetnt"></div>
+    </div>
+    <div class="overlay display-none" id="createWorklogPageModal">
+      <div class="modal" id="createWorklogModalContent">
+        <div class="exit-wrapper">
+          <button type="button" class="custom-btn exitBtn">X</button>
+        </div>
+        <form id="formCreate" action="index.html" method="POST">
+          <div class="my-form-group">
+            <label for="empolyeeSelect">Employee </label>
+            <select name="empolyeeSelect" id="empolyeeSelect">
+              <option value="0">Select</option>
+            </select>
+          </div>
+          <div class="my-form-group">
+            <label for="workDate">Work date</label>
+            <input type="date" id="workDate" name="workDate" />
+          </div>
+          <div class="my-form-group">
+            <label for="freeDay">Free day</label>
+            <input type="checkbox" id="freeDay" name="freeDay" />
+          </div>
+          <div class="my-form-group">
+            <label for="loggedHours">Logged hours</label>
+            <input
+              type="number"
+              value="0"
+              name="loggedHours"
+              id="loggedHours"
+            />
+          </div>
+          <div class="my-form-group">
+            <label for="task">Task</label>
+            <textarea id="task" name="task" rows="4" cols="50"></textarea>
+          </div>
+          <div class="my-form-group">
+            <label for="comment">Comment</label>
+            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+          </div>
+          <div class="my-form-group">
+            <button type="submit" id="createBtn">Create</button>
+            <button type="button" class="display-none" id="updateBtn">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
     <script type="module" src="assets/js/main.js"></script>
   </body>
