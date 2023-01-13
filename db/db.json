@@ -8,18 +8,18 @@
       "position": "Lead Architect",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 1
     },
     {
       "image": "https://1.bp.blogspot.com/-k3punlSKioo/WfxponyfhpI/AAAAAAAAUNc/FiFFVHX7feEkOg1ArFzWQH9XjW4fiVITgCLcBGAs/s1600/Rambo%2Biii.jpg",
       "first_name": "Milos",
       "last_name": "Radoman",
-      "email": "milos.radoma@orioninc.com",
+      "email": "milos.radoman@orioninc.com",
       "position": "Team Lead",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 2
     },
     {
@@ -30,7 +30,7 @@
       "position": "Team Lead",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 3
     },
     {
@@ -41,18 +41,18 @@
       "position": "Junior FE Developer",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 4
     },
     {
       "image": "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png",
       "first_name": "Petar",
       "last_name": "Petrovic",
-      "email": "petar.petrovicg@orioninc.com",
+      "email": "petar.petrovic@orioninc.com",
       "position": "Menager",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 5
     },
     {
@@ -63,7 +63,7 @@
       "position": "QA",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 6
     },
     {
@@ -74,91 +74,64 @@
       "position": "HR Specialist",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. ",
       "employment_date": "2018-07-23",
-      "password": 12345,
+      "password": "12345",
       "id": 7
     }
   ],
   "worklog": [
     {
       "employee": "Ervin Suhanko",
-      "work_date": "2022-12-06",
-      "free_day": true,
-      "logged_hours": "0",
-      "task": "",
-      "comment": "Odmor",
+      "work_date": "2023-01-10",
+      "free_day": false,
+      "logged_hours": "8",
+      "task": "Create new feature",
+      "comment": "",
       "id": 1
     },
     {
-      "employee": "Danijela Nikitin",
-      "work_date": "2022-12-01",
-      "free_day": false,
-      "logged_hours": "8",
-      "task": "Lorem y. Lorem Ipsum has been the industry's standard du",
+      "employee": "Petar Petrovic",
+      "work_date": "2023-01-11",
+      "free_day": true,
+      "logged_hours": "0",
+      "task": "",
       "comment": "",
       "id": 2
     },
     {
-      "employee": "Milos Radoman",
-      "work_date": "2022-12-02",
-      "free_day": false,
-      "logged_hours": "8",
-      "task": "Lorem Ipsum has been the industry's standard dummy text ",
-      "comment": "Lorem Ipsum has been the industry's standard dummy text e",
+      "employee": "Petar Petrovic",
+      "work_date": "2023-01-02",
+      "free_day": true,
+      "logged_hours": "0",
+      "task": "",
+      "comment": "",
       "id": 3
     },
     {
-      "employee": "Ervin Suhanko",
-      "work_date": "2022-12-06",
+      "employee": "Danijela Nikitin",
+      "work_date": "2023-01-13",
       "free_day": false,
       "logged_hours": "8",
-      "task": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, w",
-      "comment": "",
+      "task": "Preparing material for trainees",
+      "comment": "HTML,CSS",
       "id": 4
     },
     {
-      "employee": "Vuk Todoric",
-      "work_date": "2022-12-02",
+      "employee": "Milos Radoman",
+      "work_date": "2023-01-12",
       "free_day": false,
-      "logged_hours": "6",
-      "task": "Lorem x lorem",
+      "logged_hours": "8",
+      "task": "Class with new trainees",
       "comment": "",
       "id": 5
     },
     {
-      "employee": "Danijela Nikitin",
-      "work_date": "2022-12-09",
+      "employee": "Vuk Todoric",
+      "work_date": "2023-01-20",
       "free_day": false,
-      "logged_hours": "12",
-      "task": "Lorem lorem",
+      "logged_hours": "8",
+      "task": "Working on homework",
       "comment": "",
       "id": 6
-    },
-    {
-      "employee": "Milos Radoman",
-      "work_date": "2022-12-01",
-      "free_day": false,
-      "logged_hours": "13",
-      "task": "Lorem lorem lorem",
-      "comment": "",
-      "id": 7
-    },
-    {
-      "employee": "Marko Markovic",
-      "work_date": "2022-12-20",
-      "free_day": true,
-      "logged_hours": "0",
-      "task": "",
-      "comment": "",
-      "id": 8
-    },
-    {
-      "employee": "Marko Markovic",
-      "work_date": "2022-12-19",
-      "free_day": true,
-      "logged_hours": "0",
-      "task": "",
-      "comment": "",
-      "id": 9
     }
   ]
 }

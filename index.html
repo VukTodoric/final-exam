@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <title>Final exam</title>
   </head>
@@ -12,14 +16,6 @@
       <div id="loginPage">
         <div class="wrapper-login">
           <form id="formLogin">
-            <div class="my-form-group">
-              <label for="firstNameLogin">First name</label>
-              <input type="text" id="firstNameLogin" name="firstNameLogin" />
-            </div>
-            <div class="my-form-group">
-              <label for="lastNameLogin">Last name</label>
-              <input type="text" id="lastNameLogin" name="lastNameLogin" />
-            </div>
             <div class="my-form-group">
               <label for="emailLogin">Email</label>
               <input type="email" id="emailLogin" name="emailLogin" />
@@ -37,7 +33,11 @@
       <div id="homePage" class="display-none">
         <header>
           <div class="wrapper-account">
-            <h2 id="userName"></h2>
+            <div class="avatarAndName-wrapper">
+              <img id="userAvatar" alt="user avatar" />
+              <h2 id="userName"></h2>
+            </div>
+
             <span id="menuBtn" class="custom-btn">&#9776;</span>
             <button type="button" id="logoutBtn" class="custom-btn">
               Logout
@@ -64,8 +64,7 @@
             <table>
               <thead>
                 <tr>
-                  <th></th>
-                  <th class="thId">Employee</th>
+                  <th class="thId" colspan="2">Employee</th>
                   <th class="thCategory">Email</th>
                   <th class="thEdit">Position</th>
                   <th class="thDelete">Description</th>
@@ -95,6 +94,9 @@
                   <th class="thDelete">Comment</th>
                   <th class="thDelete">Free day</th>
                   <th class="thDelete">Overtime</th>
+                  <th class="thDelete">
+                    <span class="material-symbols-outlined"> edit_note </span>
+                  </th>
                 </tr>
               </thead>
               <tbody id="tableBodyWorklog"></tbody>
@@ -103,62 +105,77 @@
         </div>
       </div>
     </div>
-    <div class="overlay display-none" id="logoutModal">
-      <div class="modal">
-        <h2>Are you sure you want to logout?</h2>
-        <div class="answers">
-          <button type="button" class="custom-btn" id="yesBtn">Yes</button>
-          <button type="button" class="custom-btn" id="noBtn">No</button>
+    <div class="overlay display-none" id="showModal">
+      <div class="modal" id="modalContent">
+        <!-- Logout Modal -->
+        <div id="logoutModal" class="display-none">
+          <h2>Are you sure you want to logout?</h2>
+          <div class="answers">
+            <button type="button" class="custom-btn" id="yesBtn">Yes</button>
+            <button type="button" class="custom-btn" id="noBtn">No</button>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="overlay display-none" id="singePageModal">
-      <div class="modal" id="singePageModalContetnt"></div>
-    </div>
-    <div class="overlay display-none" id="createWorklogPageModal">
-      <div class="modal" id="createWorklogModalContent">
-        <div class="exit-wrapper">
-          <button type="button" class="custom-btn exitBtn">X</button>
+        <!-- Logout Modal  end-->
+        <div id="wrongLogin" class="display-none">
+          <h2>Wrong credentials, there is no such user!</h2>
+          <p id="counterDisplay"></p>
         </div>
-        <form id="formCreate" action="index.html" method="POST">
-          <div class="my-form-group">
-            <label for="empolyeeSelect">Employee </label>
-            <select name="empolyeeSelect" id="empolyeeSelect">
-              <option value="0">Select</option>
-            </select>
+        <!-- Single page modal -->
+        <div id="singePageModalContetnt" class="display-none"></div>
+        <!-- Single page modal end -->
+        <!-- Create and Edit Modal -->
+        <div class="display-none" id="createWorklogPageModal">
+          <div class="exit-wrapper">
+            <button type="button" class="custom-btn exitBtn">X</button>
           </div>
-          <div class="my-form-group">
-            <label for="workDate">Work date</label>
-            <input type="date" id="workDate" name="workDate" />
-          </div>
-          <div class="my-form-group">
-            <label for="freeDay">Free day</label>
-            <input type="checkbox" id="freeDay" name="freeDay" />
-          </div>
-          <div class="my-form-group">
-            <label for="loggedHours">Logged hours</label>
-            <input
-              type="number"
-              value="0"
-              name="loggedHours"
-              id="loggedHours"
-            />
-          </div>
-          <div class="my-form-group">
-            <label for="task">Task</label>
-            <textarea id="task" name="task" rows="4" cols="50"></textarea>
-          </div>
-          <div class="my-form-group">
-            <label for="comment">Comment</label>
-            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-          </div>
-          <div class="my-form-group">
-            <button type="submit" id="createBtn">Create</button>
-            <button type="button" class="display-none" id="updateBtn">
-              Update
-            </button>
-          </div>
-        </form>
+          <form id="formCreate" action="index.html" method="POST">
+            <div class="my-form-group">
+              <label for="empolyeeSelect">Employee </label>
+              <select name="empolyeeSelect" id="empolyeeSelect">
+                <option value="0">Select</option>
+              </select>
+            </div>
+            <div class="my-form-group">
+              <label for="workDate">Work date</label>
+              <input type="date" id="workDate" name="workDate" />
+            </div>
+            <div class="my-form-group">
+              <label for="freeDay">Free day</label>
+              <input type="checkbox" id="freeDay" name="freeDay" />
+            </div>
+            <div class="my-form-group">
+              <label for="loggedHours">Logged hours</label>
+              <input
+                type="number"
+                value="0"
+                name="loggedHours"
+                id="loggedHours"
+              />
+            </div>
+            <div class="my-form-group">
+              <label for="task">Task</label>
+              <textarea id="task" name="task" rows="4" cols="50"></textarea>
+            </div>
+            <div class="my-form-group">
+              <label for="comment">Comment</label>
+              <textarea
+                id="comment"
+                name="comment"
+                rows="4"
+                cols="50"
+              ></textarea>
+            </div>
+            <div class="my-form-group">
+              <button type="submit" class="display-none" id="createBtn">
+                Create
+              </button>
+              <button type="button" class="display-none" id="updateBtn">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- Create and Edit Modal end -->
       </div>
     </div>
     <script type="module" src="assets/js/main.js"></script>

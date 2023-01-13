@@ -1,5 +1,10 @@
 import { FetchApi } from "./service.js";
-import { resetFields, exitModal, renderSelect } from "./shared.js";
+import {
+  resetFields,
+  exitModal,
+  renderSelect,
+  displayWarning,
+} from "./shared.js";
 import { LoggDetails } from "./model.js";
 import { URl_LOCAL } from "./enviroment.js";
 
@@ -11,8 +16,6 @@ let loginPage = document.getElementById("loginPage"),
   worklogNav = document.getElementById("worklogNav"),
   navMenu = document.getElementById("navMenu"),
   tableBody = document.getElementById("tableBody"),
-  firstNameLogin = document.getElementById("firstNameLogin"),
-  lastNameLogin = document.getElementById("lastNameLogin"),
   emailLogin = document.getElementById("emailLogin"),
   passwordLogin = document.getElementById("passwordLogin"),
   formLogin = document.getElementById("formLogin"),
@@ -22,16 +25,12 @@ let loginPage = document.getElementById("loginPage"),
   yesBtn = document.getElementById("yesBtn"),
   noBtn = document.getElementById("noBtn"),
   employee = document.getElementsByClassName("employee"),
-  singePageModal = document.getElementById("singePageModal"),
   singePageModalContetnt = document.getElementById("singePageModalContetnt"),
   homePageContent = document.getElementById("homePageContent"),
   worklogPage = document.getElementById("worklogPage"),
   tableBodyWorklog = document.getElementById("tableBodyWorklog"),
   createWorklogBtn = document.getElementById("createWorklogBtn"),
   createWorklogPageModal = document.getElementById("createWorklogPageModal"),
-  createWorklogModalContent = document.getElementById(
-    "createWorklogModalContent"
-  ),
   formCreate = document.getElementById("formCreate"),
   empolyeeSelect = document.getElementById("empolyeeSelect"),
   task = document.getElementById("task"),
@@ -40,7 +39,11 @@ let loginPage = document.getElementById("loginPage"),
   workDate = document.getElementById("workDate"),
   freeDay = document.getElementById("freeDay"),
   loggedHours = document.getElementById("loggedHours"),
-  updateBtn = document.getElementById("updateBtn");
+  updateBtn = document.getElementById("updateBtn"),
+  showModal = document.getElementById("showModal"),
+  wrongLogin = document.getElementById("wrongLogin"),
+  counterDisplay = document.getElementById("counterDisplay"),
+  userAvatar = document.getElementById("userAvatar");
 
 let employeeArray = [];
 let worklogArray = [];
@@ -74,23 +77,32 @@ worklogNav.addEventListener("click", function () {
 homeNav.addEventListener("click", function () {
   worklogPage.classList.add("display-none");
   homePageContent.classList.remove("display-none");
+  tableBodyWorklog.innerHTML = null;
 });
 
 createWorklogBtn.addEventListener("click", function (event) {
+  showModal.classList.remove("display-none");
   createWorklogPageModal.classList.remove("display-none");
-  updateBtn.classList.add("display-none");
-  empolyeeSelect.innerHTML = null;
+  logoutModal.classList.add("display-none");
   createBtn.classList.remove("display-none");
+  updateBtn.classList.add("display-none");
+  empolyeeSelect.value = null;
   renderSelect(employeeArray, empolyeeSelect);
+  employeeArray = [];
   resetFields(formCreate);
-  exitModal(createWorklogPageModal);
+  exitModal(showModal);
 });
 
 formCreate.addEventListener("submit", function (event) {
-  if (valid) {
+  if (
+    valid &&
+    (!empolyeeSelect.value.length === 0 || !empolyeeSelect.value == 0) &&
+    !workDate.value == ""
+  ) {
     event.preventDefault();
-    createWorklogPageModal.classList.add("display-none");
-
+    showModal.classList.add("display-none");
+    createBtn.classList.add("display-none");
+    worklogArray = [];
     FetchApi.getMethodPost(
       URl_LOCAL + "/worklog/",
       new LoggDetails(
@@ -103,10 +115,12 @@ formCreate.addEventListener("submit", function (event) {
       )
     ).then(function () {
       FetchApi.getMethodGet(URl_LOCAL + "/worklog/").then(function (data) {
-        createWorklogModalContent.innerHTML = null;
         tableBodyWorklog.innerHTML = null;
-        worklogArray.push(data);
         createWorklogList(data);
+        edit();
+        for (let worklogs of data) {
+          worklogArray.push(worklogs);
+        }
       });
     });
   } else {
@@ -116,21 +130,48 @@ formCreate.addEventListener("submit", function (event) {
 
 formLogin.addEventListener("submit", function (event) {
   event.preventDefault();
-  if (valid) {
-    event.preventDefault();
-    homePage.classList.remove("display-none");
-    loginPage.classList.add("display-none");
-    userName.innerText = firstNameLogin.value + " " + lastNameLogin.value;
 
-    FetchApi.getMethodGet(
-      `http://localhost:3000/employee?firstNameLogin=${firstNameLogin.value}&lastNameLogin=${lastNameLogin.value}&emailLogin=${emailLogin.value}&passwordLogin=${passwordLogin.value}`
-    ).then(function (data) {
+  FetchApi.getMethodGet(
+    `http://localhost:3000/employee?emailLogin=${emailLogin.value}&passwordLogin=${passwordLogin.value}`
+  ).then(function (data) {
+    let validCredentials = data.some(
+      (filtered) =>
+        filtered.email == emailLogin.value &&
+        filtered.password == passwordLogin.value
+    );
+    let displayName = data.filter((f) => f.email === emailLogin.value);
+
+    displayName.forEach(
+      (el) => (userName.textContent = el.first_name + " " + el.last_name)
+    );
+    displayName.forEach((el) => userAvatar.setAttribute("src", el.image));
+
+    if (validCredentials && valid) {
+      homePage.classList.remove("display-none");
+      loginPage.classList.add("display-none");
       createList(data);
       openEmployeePage();
-    });
-  } else {
-    event.preventDefault();
-  }
+    } else if (!validCredentials) {
+      showModal.classList.remove("display-none");
+      wrongLogin.classList.remove("display-none");
+      let counter = 4;
+      counterDisplay.innerText = null;
+      setInterval(() => {
+        if (counter >= 0) {
+          counter--;
+          counterDisplay.innerText = "Will close in " + counter + "s";
+        }
+      }, 1000);
+      setTimeout(function () {
+        wrongLogin.classList.add("display-none");
+        showModal.classList.add("display-none");
+      }, 4000);
+
+      event.preventDefault();
+    } else {
+      event.preventDefault();
+    }
+  });
 });
 
 emailSearch.addEventListener("keyup", function () {
@@ -145,6 +186,7 @@ emailSearch.addEventListener("keyup", function () {
 });
 
 function createList(response) {
+  worklogArray.push(response);
   for (let employee of response) {
     let description = employee.description;
     let shortenDesc = description.substring(0, 40) + "...";
@@ -172,7 +214,7 @@ function createWorklogList(response) {
         <td>${employee.task}</td>
         <td>${employee.comment}</td>
         <td><input type="checkbox" disabled ${
-          employee.free_day == true ? "checked" : ""
+          employee.free_day ? "checked" : ""
         }></td>
         <td>${employee.logged_hours > 8 ? "Yes" : "No"}</td>
         <td><button class= "edit custom-btn"  data-employeeId="${
@@ -184,66 +226,74 @@ function createWorklogList(response) {
 }
 
 function edit() {
+  exitModal(showModal);
   for (let editLink of editLinks) {
     editLink.addEventListener("click", function (event) {
+      showModal.classList.remove("display-none");
+      createWorklogPageModal.classList.remove("display-none");
+      updateBtn.classList.remove("display-none");
       const id = event.target.getAttribute("data-employeeId");
+      renderSelect(employeeArray, empolyeeSelect);
       FetchApi.getMethodGet(URl_LOCAL + "/worklog/", id).then(function (
         worklog
       ) {
         empolyeeSelect.value = worklog.employee;
         workDate.value = worklog.work_date;
-        freeDay.value = worklog.free_day;
+        freeDay.checked = worklog.free_day;
         loggedHours.value = worklog.logged_hours;
         task.value = worklog.task;
         comment.value = worklog.comment;
-        createWorklogPageModal.classList.remove("display-none");
-        updateBtn.classList.remove("display-none");
         createBtn.classList.add("display-none");
         updateBtn.setAttribute("data-employeeId", worklog.id);
-        renderSelect(employeeArray, empolyeeSelect);
-        exitModal(createWorklogPageModal);
-        updateBtn.addEventListener("click", function () {
-          const id = event.target.getAttribute("data-employeeId");
-          FetchApi.getMethodPut(
-            URl_LOCAL + "/worklog/",
-            new LoggDetails(
-              empolyeeSelect,
-              workDate,
-              freeDay,
-              loggedHours,
-              task,
-              comment
-            ),
-            id
-          ).then(function () {
-            updateBtn.classList.add("display-none");
-            createBtn.classList.remove("display-none");
-            createWorklogPageModal.classList.add("display-none");
-            FetchApi.getMethodGet(URl_LOCAL + "/worklog/").then(function (
-              data
-            ) {
-              tableBodyWorklog.innerHTML = null;
-              createWorklogList(data);
-              resetFields(formCreate);
-            });
-          });
-        });
+        employeeArray = [];
       });
     });
   }
 }
 
+updateBtn.addEventListener("click", function (event) {
+  const id = event.target.getAttribute("data-employeeId");
+  FetchApi.getMethodPut(
+    URl_LOCAL + "/worklog/",
+    new LoggDetails(
+      empolyeeSelect,
+      workDate,
+      freeDay,
+      loggedHours,
+      task,
+      comment
+    ),
+    id
+  ).then(function () {
+    showModal.classList.add("display-none");
+    exitModal(showModal);
+    tableBodyWorklog.innerHTML = null;
+    worklogArray = [];
+    FetchApi.getMethodGet(URl_LOCAL + "/worklog/").then(function (data) {
+      for (let worklogs of data) {
+        worklogArray.push(worklogs);
+      }
+      createWorklogList(data);
+      resetFields(formCreate);
+      edit();
+    });
+  });
+});
+
 function openEmployeePage() {
   for (let employeeId of employee) {
     employeeId.addEventListener("click", function (event) {
       const id = event.target.getAttribute("data-employeeId");
-      singePageModal.classList.remove("display-none");
+      showModal.classList.remove("display-none");
+      singePageModalContetnt.classList.remove("display-none");
+      createWorklogPageModal.classList.add("display-none");
+
       FetchApi.getMethodGet(URl_LOCAL + "/employee/", id).then(function (data) {
         let filterArr = worklogArray.filter(
-          (f) => f.employee == data.first_name + " " + data.last_name
+          (f) => f.employee === data.first_name + " " + data.last_name
         );
-
         let renderFiltered = "";
+
         filterArr.forEach(
           (el) =>
             (renderFiltered += `
@@ -253,6 +303,7 @@ function openEmployeePage() {
         </tr>
         `)
         );
+
         tableBodyWorklog.innerHTML = renderFiltered;
         singePageModalContetnt.innerHTML += `
         <div class="exit-wrapper">
@@ -276,21 +327,26 @@ function openEmployeePage() {
         </div>
         <div/>      
                 `;
-        exitModal(singePageModal, singePageModalContetnt);
+        exitModal(showModal, singePageModalContetnt);
       });
     });
   }
 }
 
 logoutBtn.addEventListener("click", function () {
+  showModal.classList.remove("display-none");
   logoutModal.classList.remove("display-none");
+  createWorklogPageModal.classList.add("display-none");
   noBtn.addEventListener("click", function () {
     logoutModal.classList.add("display-none");
+    showModal.classList.add("display-none");
   });
+
   yesBtn.addEventListener("click", function () {
     homePage.classList.add("display-none");
     loginPage.classList.remove("display-none");
     logoutModal.classList.add("display-none");
+    showModal.classList.add("display-none");
     valid = false;
     tableBody.innerText = null;
     resetFields(formLogin);
@@ -298,53 +354,35 @@ logoutBtn.addEventListener("click", function () {
 });
 
 let valid = false;
-firstNameLogin.addEventListener("keyup", function () {
-  if (firstNameLogin.value.length === 0) {
-    valid = false;
-    firstNameLogin.classList.add("invalid");
-  } else {
-    valid = true;
-    firstNameLogin.classList.remove("invalid");
-  }
-});
-lastNameLogin.addEventListener("keyup", function () {
-  if (lastNameLogin.value.length === 0) {
-    valid = false;
-    lastNameLogin.classList.add("invalid");
-  } else {
-    valid = true;
-    lastNameLogin.classList.remove("invalid");
-  }
-});
 
 emailLogin.addEventListener("keyup", function () {
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const isEmailValid = regexEmail.test(emailLogin.value);
   if (!isEmailValid) {
-    valid = false;
-    emailLogin.classList.add("invalid");
+    ifNotValid(emailLogin);
+    displayWarning(emailLogin, "Invalid email address!");
   } else {
-    valid = true;
-    emailLogin.classList.remove("invalid");
+    ifValid(emailLogin);
+    displayWarning(emailLogin, null);
   }
 });
 passwordLogin.addEventListener("keyup", function () {
   if (passwordLogin.value.length < 5) {
-    valid = false;
-    passwordLogin.classList.add("invalid");
+    ifNotValid(passwordLogin);
+    displayWarning(passwordLogin, "Password is to short! Min 5 characters.");
   } else {
-    valid = true;
-    passwordLogin.classList.remove("invalid");
+    ifValid(passwordLogin);
+    displayWarning(passwordLogin, null);
   }
 });
 
 empolyeeSelect.addEventListener("click", function () {
-  if (empolyeeSelect.value.length === 0) {
-    valid = false;
-    empolyeeSelect.classList.add("invalid");
+  if (empolyeeSelect.value.length === 0 || empolyeeSelect.value == 0) {
+    ifNotValid(empolyeeSelect);
+    displayWarning(empolyeeSelect, "This fild is required!");
   } else {
-    valid = true;
-    empolyeeSelect.classList.remove("invalid");
+    ifValid(empolyeeSelect);
+    displayWarning(empolyeeSelect, null);
   }
 });
 
@@ -359,11 +397,14 @@ loggedHours.addEventListener("keyup", function () {
   const isHoursValid = regexHours.test(loggedHours.value);
 
   if (loggedHours.value < 0 || !isHoursValid) {
-    valid = false;
-    loggedHours.classList.add("invalid");
+    ifNotValid(loggedHours);
+    displayWarning(loggedHours, "Must be a number and min value can be 0!");
   } else {
-    valid = true;
-    loggedHours.classList.remove("invalid");
+    ifValid(loggedHours);
+    loggedHours.value == 0
+      ? (freeDay.checked = true)
+      : (freeDay.checked = false);
+    displayWarning(loggedHours, null);
   }
 });
 
@@ -371,22 +412,30 @@ task.addEventListener("keyup", function () {
   const regexTask = /^[A-Z]/;
   const isTaskValid = regexTask.test(task.value);
   if (!isTaskValid) {
-    valid = false;
-    task.classList.add("invalid");
+    ifNotValid(task);
+    displayWarning(task, "Must start with capital letter!");
   } else {
-    valid = true;
-    task.classList.remove("invalid");
+    ifValid(task);
+    displayWarning(task, null);
   }
 });
-
 comment.addEventListener("keyup", function () {
   const regexComment = /^.{0,250}$/;
   const isComentValid = regexComment.test(comment.value);
   if (!isComentValid) {
-    valid = false;
-    comment.classList.add("invalid");
+    ifNotValid(comment);
+    displayWarning(comment, "Max amount of 250 characters!");
   } else {
-    valid = true;
-    comment.classList.remove("invalid");
+    ifValid(comment);
+    displayWarning(comment, null);
   }
 });
+
+function ifValid(id) {
+  valid = true;
+  id.classList.remove("invalid");
+}
+function ifNotValid(id) {
+  valid = false;
+  id.classList.add("invalid");
+}
